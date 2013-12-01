@@ -32,9 +32,11 @@ public class PhysicsScene extends AbstractScene {
 	/** THE CANVAS SCALE **/
 	private float scale = 20;
 	private MTApplication app;
-	private int score;
-	private int timer;
 	private World world;
+	
+	//New Variables
+	private int timer;
+	private int score;
 	
 	private MTComponent physicsContainer;
 	
@@ -42,7 +44,7 @@ public class PhysicsScene extends AbstractScene {
 		super(mtApplication, name);
 		this.app = mtApplication;
 		
-		//New variables
+		//Initialize new variables
 		this.score = 0;
 		this.timer = 15;
 		
@@ -85,13 +87,15 @@ public class PhysicsScene extends AbstractScene {
         timerTextField.removeAllGestureEventListeners();
         timerTextField.setText("TIME LEFT: " + timer);
         this.getCanvas().addChild(timerTextField);
-        //Created action listener to decrement Timer
+       
+        //Create action listener to decrement Timer
         ActionListener timerListener = new ActionListener()
         {
         	public void actionPerformed(ActionEvent e)
         	{
     			if (timer > 0)
     			{
+    				//Decrement timer and update the timer text area
         			timer--;
         			timerTextField.setText("TIME LEFT: " + timer);
     			}
@@ -105,7 +109,7 @@ public class PhysicsScene extends AbstractScene {
     					getCanvas().removeChild(child);
     				}
     				
-    				//Create text area to display "Yay! End of Game!" Message
+    				//Create text area to display End of Game Message and Final Score
     				IFont fontArial = FontManager.getInstance().createFont(app, "arial.ttf", 30, MTColor.BLACK, MTColor.BLACK);
     		        final MTTextArea endMessage = new MTTextArea(app, fontArial);
     		        endMessage.setPositionGlobal(new Vector3D(app.width - 750, 300, 1, 1));
@@ -117,11 +121,11 @@ public class PhysicsScene extends AbstractScene {
         	}
         };
         
-        //Start Timer
+        //Start Timer with Action Listener
         Timer timer = new Timer(1000, timerListener);
         timer.start();
 		
-		//Create bubbles for popping
+		//Create 80 bubbles for popping
 		for (int i = 0; i < 80; i++) {
 			PhysicsCircle c = new PhysicsCircle(app, new Vector3D(ToolsMath.getRandom(60, mtApplication.width-60), ToolsMath.getRandom(60, mtApplication.height-60)), 50, world, 1.0f, 0.3f, 0.4f, scale);
 			MTColor col = new MTColor(ToolsMath.getRandom(60, 255),ToolsMath.getRandom(60, 255),ToolsMath.getRandom(60, 255));
@@ -131,12 +135,14 @@ public class PhysicsScene extends AbstractScene {
 			c.addGestureListener(TapProcessor.class,  new IGestureEventListener()
 				{
 					public boolean processGestureEvent(MTGestureEvent ge) {
+						//Check for Tap Event
 						TapEvent te = (TapEvent)ge;
 						IMTComponent3D target = te.getTargetComponent();
 						if (target instanceof MTEllipse) {
 					        MTEllipse bubble = (MTEllipse) target;
 							switch (te.getTapID()) {
 								case TapEvent.BUTTON_DOWN:
+									//Destroy bubble, update score and score text area
 									bubble.destroy();
 									score = score + 10;
 									scoreTextField.setText("SCORE: " + score);
