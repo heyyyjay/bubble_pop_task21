@@ -4,7 +4,7 @@
 <p><strong>Fall 2013 with Assistant Prof. Donald Patterson<br />
 by Jay Tolentino, Melody Truong, Sam Chung, and Thien Nguyen</p>
 
-<p>Created a bubble-pop java application where a user gets 10 points for popping a bubble and aims to get as many points possible before the time runs out. <br /><br />**Customized code in file title "INF133Assignment21.java"**</p>
+<p>Created a bubble-pop java application where a user gets 10 points for popping a bubble and aims to get as many points possible before the time runs out. <br /><br />**Customized code "INF133Assignment21.java" and "PhysicsScene.java"**</p>
 <br />
 <h4>Used:</h4>
 <ul>
